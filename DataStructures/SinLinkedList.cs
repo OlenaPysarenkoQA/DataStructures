@@ -6,7 +6,7 @@ namespace DataStructures
     {
         private class Node
         {
-            public object Value;
+            public readonly object Value;
             public Node Next;
 
             public Node(object value)
@@ -16,23 +16,28 @@ namespace DataStructures
             }
         }
 
-        private Node First;
-        private Node Last;
+        private Node first;
+        private Node last;
         private int сount;
+
+        public int Count
+        {
+            get { return сount; }
+        }
 
         public void Add(object value)
         {
             Node newNode = new Node(value);
 
-            if (First == null)
+            if (first == null)
             {
-                First = newNode;
-                Last = newNode;
+                first = newNode;
+                last = newNode;
             }
             else
             {
-                Last.Next = newNode;
-                Last = newNode;
+                last.Next = newNode;
+                last = newNode;
             }
 
             сount++;
@@ -42,15 +47,15 @@ namespace DataStructures
         {
             Node newNode = new Node(value);
 
-            if (First == null)
+            if (first == null)
             {
-                First = newNode;
-                Last = newNode;
+                first = newNode;
+                last = newNode;
             }
             else
             {
-                newNode.Next = First;
-                First = newNode;
+                newNode.Next = first;
+                first = newNode;
             }
 
             сount++;
@@ -74,7 +79,7 @@ namespace DataStructures
             else
             {
                 Node newNode = new Node(value);
-                Node current = First;
+                Node current = first;
 
                 for (int i = 0; i < index - 1; i++)
                 {
@@ -90,18 +95,18 @@ namespace DataStructures
 
         public void Clear()
         {
-            First = null;
-            Last = null;
+            first = null;
+            last = null;
             сount = 0;
         }
 
         public bool Contains(object value)
         {
-            Node current = First;
+            Node current = first;
 
             while (current != null)
             {
-                if (ObjectEqualityCheck(current.Value, value))
+                if (ObjectEquals(current.Value, value))
                 {
                     return true;
                 }
@@ -112,52 +117,7 @@ namespace DataStructures
             return false;
         }
 
-        public object[] ToArray()
-        {
-            object[] result = new object[сount];
-            Node current = First;
-
-            for (int i = 0; i < сount; i++)
-            {
-                result[i] = current.Value;
-                current = current.Next;
-            }
-
-            return result;
-        }
-
-        public int Count
-        {
-            get { return сount; }
-        }
-
-        public object FirstValue
-        {
-            get
-            {
-                if (First == null)
-                {
-                    throw new InvalidOperationException("List is empty");
-                }
-
-                return First.Value;
-            }
-        }
-
-        public object LastValue
-        {
-            get
-            {
-                if (Last == null)
-                {
-                    throw new InvalidOperationException("List is empty");
-                }
-
-                return Last.Value;
-            }
-        }
-
-        private bool ObjectEqualityCheck(object obj1, object obj2)
+        private bool ObjectEquals(object obj1, object obj2)
         {
             if (obj1 == null && obj2 == null)
             {
@@ -169,16 +129,46 @@ namespace DataStructures
                 return false;
             }
 
-            try
-            {
-                int intX = (int)obj1;
-                int intY = (int)obj2;
+            return obj1.Equals(obj2);
+        }
 
-                return intX == intY;
-            }
-            catch (InvalidCastException)
+        public object[] ToArray()
+        {
+            object[] result = new object[сount];
+            Node current = first;
+
+            for (int i = 0; i < сount; i++)
             {
-                return false;
+                result[i] = current.Value;
+                current = current.Next;
+            }
+
+            return result;
+        }
+
+        public object FirstValue
+        {
+            get
+            {
+                if (first == null)
+                {
+                    throw new InvalidOperationException("List is empty");
+                }
+
+                return first.Value;
+            }
+        }
+
+        public object LastValue
+        {
+            get
+            {
+                if (last == null)
+                {
+                    throw new InvalidOperationException("List is empty");
+                }
+
+                return last.Value;
             }
         }
     }

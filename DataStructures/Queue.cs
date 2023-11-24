@@ -9,6 +9,11 @@ namespace DataStructures
         private int tail;
         private int count;
 
+        public int Count
+        {
+            get { return count; }
+        }
+
         public Queue()
         {
             array = new object[4];
@@ -49,38 +54,16 @@ namespace DataStructures
             count = 0;
         }
 
-        public bool Contains(object item)
+        public bool Contains(object? item)
         {
             for (int i = 0; i < count; i++)
             {
-                int index = (head + i) % array.Length;
-                object currentItem = array[index];
-
-                if (ObjectEqualityCheck(currentItem, item))
+                if (array[i].Equals(item))
                 {
                     return true;
                 }
             }
-
             return false;
-        }
-
-        private bool ObjectEqualityCheck(object obj1, object obj2)
-        {
-            if (obj1 == null && obj2 == null)
-            {
-                return true;
-            }
-
-            if (obj1 == null || obj2 == null)
-            {
-                return false;
-            }
-
-            int intX = (int)obj1;
-            int intY = (int)obj2;
-
-            return intX == intY;
         }
 
         public object Peek()
@@ -102,11 +85,6 @@ namespace DataStructures
                 newArray[i] = array[index];
             }
             return newArray;
-        }
-
-        public int Count
-        {
-            get { return count; }
         }
 
         private void EnsureCapacity()

@@ -6,20 +6,25 @@ namespace DataStructures
     {
         private class TreeNode
         {
-            public object Value;
-            public TreeNode Left;
-            public TreeNode Right;
+            public readonly object Value;
+            public TreeNode left;
+            public TreeNode right;
 
             public TreeNode(object value)
             {
                 Value = value;
-                Left = null;
-                Right = null;
+                left = null;
+                right = null;
             }
         }
 
-        private TreeNode Root;
+        private TreeNode root;
         private int nodeCount;
+
+        public int Count
+        {
+            get { return nodeCount; }
+        }
 
         public void Add(object value)
         {
@@ -28,13 +33,13 @@ namespace DataStructures
                 throw new ArgumentNullException(nameof(value), "Value cannot be null");
             }
 
-            if (Root == null)
+            if (root == null)
             {
-                Root = new TreeNode(value);
+                root = new TreeNode(value);
             }
             else
             {
-                AddTo(Root, value);
+                AddTo(root, value);
             }
 
             nodeCount++;
@@ -46,26 +51,26 @@ namespace DataStructures
             {
                 if (CompareValues(value, node.Value) < 0)
                 {
-                    if (node.Left == null)
+                    if (node.left == null)
                     {
-                        node.Left = new TreeNode(value);
+                        node.left = new TreeNode(value);
                         return;
                     }
                     else
                     {
-                        node = node.Left;
+                        node = node.left;
                     }
                 }
                 else if (CompareValues(value, node.Value) > 0)
                 {
-                    if (node.Right == null)
+                    if (node.right == null)
                     {
-                        node.Right = new TreeNode(value);
+                        node.right = new TreeNode(value);
                         return;
                     }
                     else
                     {
-                        node = node.Right;
+                        node = node.right;
                     }
                 }
                 else
@@ -96,7 +101,7 @@ namespace DataStructures
 
         public bool Contains(object value)
         {
-            return ContainsRecursive(Root, value);
+            return ContainsRecursive(root, value);
         }
 
         private bool ContainsRecursive(TreeNode node, object value)
@@ -109,11 +114,11 @@ namespace DataStructures
                 }
                 else if (CompareValues(value, node.Value) < 0)
                 {
-                    node = node.Left;
+                    node = node.left;
                 }
                 else
                 {
-                    node = node.Right;
+                    node = node.right;
                 }
             }
 
@@ -122,7 +127,7 @@ namespace DataStructures
 
         public void Clear()
         {
-            Root = null;
+            root = null;
             nodeCount = 0;
         }
 
@@ -130,23 +135,20 @@ namespace DataStructures
         {
             object[] result = new object[nodeCount];
             int index = 0;
-            ToArrayRecursive(Root, result, ref index);
+            ToArrayRecursive(root, result, index);
             return result;
         }
 
-        private void ToArrayRecursive(TreeNode node, object[] result, ref int index)
+        private int ToArrayRecursive(TreeNode node, object[] result, int index)
         {
             if (node != null)
             {
-                ToArrayRecursive(node.Left, result, ref index);
+                index = ToArrayRecursive(node.left, result, index);
                 result[index++] = node.Value;
-                ToArrayRecursive(node.Right, result, ref index);
+                index = ToArrayRecursive(node.right, result, index);
             }
-        }
 
-        public int Count
-        {
-            get { return nodeCount; }
+            return index;
         }
     }
 }

@@ -7,6 +7,11 @@ namespace DataStructures
         private object[] array;
         private int top;
 
+        public int Count
+        {
+            get { return top + 1; }
+        }
+
         public Stack()
         {
             array = new object[4];
@@ -44,16 +49,15 @@ namespace DataStructures
             return array[top];
         }
 
-        public bool Contains(object item)
+        public bool Contains(object? item)
         {
-            for (int i = 0; i <= top; i++)
+            for (int i = 0; i < top; i++)
             {
-                if (ReferenceEquals(array[i], item) || (array[i] != null && array[i].Equals(item)))
+                if (array[i].Equals(item))
                 {
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -68,11 +72,6 @@ namespace DataStructures
             object[] result = new object[top + 1];
             Array.Copy(array, result, top + 1);
             return result;
-        }
-
-        public int Count
-        {
-            get { return top + 1; }
         }
 
         private void EnsureCapacity()

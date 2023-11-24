@@ -8,6 +8,11 @@ namespace DataStructures
         private int count;
         private int capacity;
 
+        public int Count
+        {
+            get { return count; }
+        }
+
         public List()
         {
             array = new object[4];
@@ -73,11 +78,11 @@ namespace DataStructures
             count = 0;
         }
 
-        public bool Contains(object item)
+        public bool Contains(object? item)
         {
             for (int i = 0; i < count; i++)
             {
-                if ((array[i] == null && item == null) || (array[i] != null && array[i] == item))
+                if (array[i].Equals(item))
                 {
                     return true;
                 }
@@ -154,10 +159,6 @@ namespace DataStructures
                     throw new IndexOutOfRangeException();
                 }
             }
-        }
-        public int Count
-        {
-            get { return count; }
         }
     }
 }
