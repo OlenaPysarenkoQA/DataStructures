@@ -2,7 +2,7 @@
 
 namespace DataStructures
 {
-    public class Queue
+    public class Queue : IQueue
     {
         private object[] array;
         private int head;

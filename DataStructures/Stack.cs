@@ -2,7 +2,7 @@
 
 namespace DataStructures
 {
-    public class Stack
+    public class Stack : IStack
     {
         private object[] array;
         private int top;
