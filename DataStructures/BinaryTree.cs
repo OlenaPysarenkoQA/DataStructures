@@ -6,13 +6,13 @@ namespace DataStructures
     {
         private class TreeNode
         {
-            public readonly object Value;
+            public readonly object value;
             public TreeNode left;
             public TreeNode right;
 
             public TreeNode(object value)
             {
-                Value = value;
+                value = value;
                 left = null;
                 right = null;
             }
@@ -49,7 +49,7 @@ namespace DataStructures
         {
             while (node != null)
             {
-                if (CompareValues(value, node.Value) < 0)
+                if (CompareValues(value, node.value) < 0)
                 {
                     if (node.left == null)
                     {
@@ -61,7 +61,7 @@ namespace DataStructures
                         node = node.left;
                     }
                 }
-                else if (CompareValues(value, node.Value) > 0)
+                else if (CompareValues(value, node.value) > 0)
                 {
                     if (node.right == null)
                     {
@@ -108,11 +108,11 @@ namespace DataStructures
         {
             while (node != null)
             {
-                if (CompareValues(value, node.Value) == 0)
+                if (CompareValues(value, node.value) == 0)
                 {
                     return true;
                 }
-                else if (CompareValues(value, node.Value) < 0)
+                else if (CompareValues(value, node.value) < 0)
                 {
                     node = node.left;
                 }
@@ -144,7 +144,7 @@ namespace DataStructures
             if (node != null)
             {
                 index = ToArrayRecursive(node.left, result, index);
-                result[index++] = node.Value;
+                result[index++] = node.value;
                 index = ToArrayRecursive(node.right, result, index);
             }
 

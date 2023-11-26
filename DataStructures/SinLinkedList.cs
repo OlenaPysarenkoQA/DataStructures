@@ -6,13 +6,13 @@ namespace DataStructures
     {
         private class Node
         {
-            public readonly object Value;
-            public Node Next;
+            public readonly object value;
+            public Node next;
 
             public Node(object value)
             {
-                Value = value;
-                Next = null;
+                value = value;
+                next = null;
             }
         }
 
@@ -36,7 +36,7 @@ namespace DataStructures
             }
             else
             {
-                last.Next = newNode;
+                last.next = newNode;
                 last = newNode;
             }
 
@@ -54,7 +54,7 @@ namespace DataStructures
             }
             else
             {
-                newNode.Next = first;
+                newNode.next = first;
                 first = newNode;
             }
 
@@ -83,11 +83,11 @@ namespace DataStructures
 
                 for (int i = 0; i < index - 1; i++)
                 {
-                    current = current.Next;
+                    current = current.next;
                 }
 
-                newNode.Next = current.Next;
-                current.Next = newNode;
+                newNode.next = current.next;
+                current.next = newNode;
 
                 сount++;
             }
@@ -106,12 +106,12 @@ namespace DataStructures
 
             while (current != null)
             {
-                if (ObjectEquals(current.Value, value))
+                if (ObjectEquals(current.value, value))
                 {
                     return true;
                 }
 
-                current = current.Next;
+                current = current.next;
             }
 
             return false;
@@ -139,8 +139,8 @@ namespace DataStructures
 
             for (int i = 0; i < сount; i++)
             {
-                result[i] = current.Value;
-                current = current.Next;
+                result[i] = current.value;
+                current = current.next;
             }
 
             return result;
@@ -155,7 +155,7 @@ namespace DataStructures
                     throw new InvalidOperationException("List is empty");
                 }
 
-                return first.Value;
+                return first.value;
             }
         }
 
@@ -168,7 +168,7 @@ namespace DataStructures
                     throw new InvalidOperationException("List is empty");
                 }
 
-                return last.Value;
+                return last.value;
             }
         }
     }

@@ -58,7 +58,7 @@ namespace DataStructures
         {
             for (int i = 0; i < count; i++)
             {
-                if (array[i].Equals(item))
+                if (ReferenceEquals(array[i], item) || (array[i] != null && array[i].Equals(item)))
                 {
                     return true;
                 }
