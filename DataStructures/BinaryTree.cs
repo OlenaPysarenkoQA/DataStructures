@@ -2,7 +2,7 @@
 
 namespace DataStructures
 {
-    public class BinaryTree
+    public class BinaryTree : IBinaryTree
     {
         private class TreeNode
         {
@@ -82,6 +82,21 @@ namespace DataStructures
 
         private int CompareValues(object x, object y)
         {
+            if (x == null && y == null)
+            {
+                return 0; 
+            }
+
+            if (x == null)
+            {
+                return -1; 
+            }
+
+            if (y == null)
+            {
+                return 1; 
+            }
+
             int intX = (int)x;
             int intY = (int)y;
 

@@ -2,7 +2,7 @@
 
 namespace DataStructures
 {
-    public class List
+    public class List : IList
     {
         private object[] array;
         private int count;

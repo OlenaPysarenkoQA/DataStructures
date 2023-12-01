@@ -7,7 +7,7 @@ namespace ConsoleTestStruct
     {
         static void Main()
         {
-            List myList = new List();
+            IList myList = new List();
             Console.WriteLine("List created!");
 
             myList.Add(1);
@@ -15,22 +15,22 @@ namespace ConsoleTestStruct
             myList.Add(3);
             Console.WriteLine("List after adding elements:");
 
-            PrintList(myList);
+            PrintCollection(myList);
 
             myList.Insert(1, 4);
             Console.WriteLine("List after inserting 4 at index 1:");
 
-            PrintList(myList);
+            PrintCollection(myList);
 
             myList.Remove(3);
             Console.WriteLine("Contains 3: " + myList.Contains(3));
 
-            PrintList(myList);
+            PrintCollection(myList);
 
-            myList.Reverse();
+            ((List)myList).Reverse();
             Console.WriteLine("List after reversing:");
 
-            PrintList(myList);
+            PrintCollection(myList);
 
             Console.WriteLine("Element at index 1: " + myList[1]);
             Console.WriteLine("List count: " + myList.Count);
@@ -39,7 +39,7 @@ namespace ConsoleTestStruct
             Console.WriteLine("List after clearing:");
             Console.WriteLine("List count after clearing: " + myList.Count);
 
-            BinaryTree binaryTree = new BinaryTree();
+            IBinaryTree binaryTree = new BinaryTree();
 
             binaryTree.Add(1);
             binaryTree.Add(3);
@@ -66,7 +66,7 @@ namespace ConsoleTestStruct
             object[] array = binaryTree.ToArray();
             Console.WriteLine("Array: " + string.Join(", ", array));
 
-            Queue myQueue = new Queue();
+            IQueue myQueue = new Queue();
 
             myQueue.Enqueue(1);
             myQueue.Enqueue(2);
@@ -93,7 +93,7 @@ namespace ConsoleTestStruct
 
             Console.WriteLine($"Count after dequeue: {myQueue.Count}");
 
-            Stack stack = new Stack();
+            IStack stack = new Stack();
 
             stack.Push(1);
             stack.Push(2);
@@ -120,21 +120,21 @@ namespace ConsoleTestStruct
 
             Console.WriteLine($"Stack count after Clear: {stack.Count}");
 
-            SinLinkedList list = new SinLinkedList();
+            ISinLinkedList list = new SinLinkedList();
 
             list.Add(1);
             list.Add(2);
             list.Add(3);
 
             Console.WriteLine("List elements:");
-            PrintList(list);
+            PrintCollection(list);
 
-            list.AddFirst(0);
+            ((SinLinkedList)list).AddFirst(0);
 
             list.Insert(2, 100);
 
             Console.WriteLine("List elements after modifications:");
-            PrintList(list);
+            PrintCollection(list);
 
             Console.WriteLine("List contains 100: " + list.Contains(100));
             Console.WriteLine("List contains 5: " + list.Contains(5));
@@ -142,18 +142,9 @@ namespace ConsoleTestStruct
             Console.ReadLine();
         }
 
-        static void PrintList(List list)
+        static void PrintCollection(ICollection collection)
         {
-            object[] array = list.ToArray();
-            for (int i = 0; i < array.Length; i++)
-            {
-                Console.WriteLine(array[i]);
-            }
-        }
-
-        static void PrintList(SinLinkedList list)
-        {
-            foreach (var item in list.ToArray())
+            foreach (var item in collection.ToArray())
             {
                 Console.WriteLine(item);
             }

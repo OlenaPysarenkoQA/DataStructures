@@ -2,7 +2,7 @@
 
 namespace DataStructures
 {
-    public class SinLinkedList
+    public class SinLinkedList : ISinLinkedList
     {
         private class Node
         {
@@ -11,7 +11,7 @@ namespace DataStructures
 
             public Node(object value)
             {
-                value = value;
+                this.value = value;
                 next = null;
             }
         }
@@ -23,6 +23,32 @@ namespace DataStructures
         public int Count
         {
             get { return сount; }
+        }
+
+        public object FirstValue
+        {
+            get
+            {
+                if (first == null)
+                {
+                    throw new InvalidOperationException("List is empty");
+                }
+
+                return first.value;
+            }
+        }
+
+        public object LastValue
+        {
+            get
+            {
+                if (last == null)
+                {
+                    throw new InvalidOperationException("List is empty");
+                }
+
+                return last.value;
+            }
         }
 
         public void Add(object value)
@@ -144,32 +170,6 @@ namespace DataStructures
             }
 
             return result;
-        }
-
-        public object FirstValue
-        {
-            get
-            {
-                if (first == null)
-                {
-                    throw new InvalidOperationException("List is empty");
-                }
-
-                return first.value;
-            }
-        }
-
-        public object LastValue
-        {
-            get
-            {
-                if (last == null)
-                {
-                    throw new InvalidOperationException("List is empty");
-                }
-
-                return last.value;
-            }
         }
     }
 }
