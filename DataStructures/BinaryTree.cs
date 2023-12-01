@@ -2,7 +2,7 @@
 
 namespace DataStructures
 {
-    public class BinaryTree<T> : IBinaryTree<T>
+    public class BinaryTree<T> : IBinaryTree<T> where T : IComparable<T>
     {
         private class TreeNode
         {
@@ -46,7 +46,7 @@ namespace DataStructures
         {
             while (node != null)
             {
-                int comparisonResult = Comparer<T>.Default.Compare(value, node.value);
+                int comparisonResult = value.CompareTo(node.value);
 
                 if (comparisonResult < 0)
                 {
@@ -79,40 +79,6 @@ namespace DataStructures
             }
         }
 
-        private int CompareValues(object x, object y)
-        {
-            if (x == null && y == null)
-            {
-                return 0; 
-            }
-
-            if (x == null)
-            {
-                return -1; 
-            }
-
-            if (y == null)
-            {
-                return 1; 
-            }
-
-            int intX = (int)x;
-            int intY = (int)y;
-
-            if (intX < intY)
-            {
-                return -1;
-            }
-            else if (intX > intY)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
         public bool Contains(T value)
         {
             return ContainsRecursive(root, value);
@@ -122,7 +88,7 @@ namespace DataStructures
         {
             while (node != null)
             {
-                int comparisonResult = Comparer<T>.Default.Compare(value, node.value);
+                int comparisonResult = value.CompareTo(node.value);
 
                 if (comparisonResult == 0)
                 {
