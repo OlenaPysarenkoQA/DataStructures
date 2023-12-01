@@ -2,17 +2,17 @@
 
 namespace DataStructures
 {
-    public class BinaryTree : IBinaryTree
+    public class BinaryTree<T> : IBinaryTree<T>
     {
         private class TreeNode
         {
-            public readonly object value;
+            public readonly T value;
             public TreeNode left;
             public TreeNode right;
 
-            public TreeNode(object value)
+            public TreeNode(T value)
             {
-                value = value;
+                this.value = value;
                 left = null;
                 right = null;
             }
@@ -21,12 +21,9 @@ namespace DataStructures
         private TreeNode root;
         private int nodeCount;
 
-        public int Count
-        {
-            get { return nodeCount; }
-        }
+        public int Count => nodeCount;
 
-        public void Add(object value)
+        public void Add(T value)
         {
             if (value == null)
             {
@@ -45,11 +42,13 @@ namespace DataStructures
             nodeCount++;
         }
 
-        private void AddTo(TreeNode node, object value)
+        private void AddTo(TreeNode node, T value)
         {
             while (node != null)
             {
-                if (CompareValues(value, node.value) < 0)
+                int comparisonResult = Comparer<T>.Default.Compare(value, node.value);
+
+                if (comparisonResult < 0)
                 {
                     if (node.left == null)
                     {
@@ -61,7 +60,7 @@ namespace DataStructures
                         node = node.left;
                     }
                 }
-                else if (CompareValues(value, node.value) > 0)
+                else if (comparisonResult > 0)
                 {
                     if (node.right == null)
                     {
@@ -114,20 +113,22 @@ namespace DataStructures
             }
         }
 
-        public bool Contains(object value)
+        public bool Contains(T value)
         {
             return ContainsRecursive(root, value);
         }
 
-        private bool ContainsRecursive(TreeNode node, object value)
+        private bool ContainsRecursive(TreeNode node, T value)
         {
             while (node != null)
             {
-                if (CompareValues(value, node.value) == 0)
+                int comparisonResult = Comparer<T>.Default.Compare(value, node.value);
+
+                if (comparisonResult == 0)
                 {
                     return true;
                 }
-                else if (CompareValues(value, node.value) < 0)
+                else if (comparisonResult < 0)
                 {
                     node = node.left;
                 }
@@ -146,24 +147,22 @@ namespace DataStructures
             nodeCount = 0;
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] result = new object[nodeCount];
+            T[] result = new T[nodeCount];
             int index = 0;
-            ToArrayRecursive(root, result, index);
+            ToArrayRecursive(root, result, ref index);
             return result;
         }
 
-        private int ToArrayRecursive(TreeNode node, object[] result, int index)
+        private void ToArrayRecursive(TreeNode node, T[] result, ref int index)
         {
             if (node != null)
             {
-                index = ToArrayRecursive(node.left, result, index);
+                ToArrayRecursive(node.left, result, ref index);
                 result[index++] = node.value;
-                index = ToArrayRecursive(node.right, result, index);
+                ToArrayRecursive(node.right, result, ref index);
             }
-
-            return index;
         }
     }
 }

@@ -2,9 +2,9 @@
 
 namespace DataStructures
 {
-    public class List : IList
+    public class List<T> : IList<T>
     {
-        private object[] array;
+        private T[] array;
         private int count;
         private int capacity;
 
@@ -15,26 +15,26 @@ namespace DataStructures
 
         public List()
         {
-            array = new object[4];
+            array = new T[4];
             count = 0;
             capacity = 4;
         }
 
         public List(int capacity)
         {
-            array = new object[capacity];
+            array = new T[capacity];
             count = 0;
             this.capacity = capacity;
         }
 
-        public void Add(object item)
+        public void Add(T item)
         {
             EnsureCapacity();
             array[count] = item;
             count++;
         }
 
-        public void Insert(int index, object item)
+        public void Insert(int index, T item)
         {
             EnsureCapacity();
 
@@ -47,11 +47,11 @@ namespace DataStructures
             count++;
         }
 
-        public void Remove(object item)
+        public void Remove(T item)
         {
             for (int i = 0; i < count; i++)
             {
-                if (array[i] == item)
+                if (EqualityComparer<T>.Default.Equals(array[i], item))
                 {
                     RemoveAt(i);
                     return;
@@ -67,22 +67,22 @@ namespace DataStructures
                 {
                     array[i] = array[i + 1];
                 }
-                array[count - 1] = null;
+                array[count - 1] = default(T);
                 count--;
             }
         }
 
         public void Clear()
         {
-            array = new object[capacity];
+            array = new T[capacity];
             count = 0;
         }
 
-        public bool Contains(object? item)
+        public bool Contains(T item)
         {
             for (int i = 0; i < count; i++)
             {
-                if (ReferenceEquals(array[i], item) || (array[i] != null && array[i].Equals(item)))
+                if (EqualityComparer<T>.Default.Equals(array[i], item))
                 {
                     return true;
                 }
@@ -90,11 +90,11 @@ namespace DataStructures
             return false;
         }
 
-        public int IndexOf(object item)
+        public int IndexOf(T item)
         {
             for (int i = 0; i < count; i++)
             {
-                if ((array[i] == null && item == null) || (array[i] != null && array[i] == item))
+                if (EqualityComparer<T>.Default.Equals(array[i], item))
                 {
                     return i;
                 }
@@ -102,13 +102,10 @@ namespace DataStructures
             return -1;
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] newArray = new object[count];
-            for (int i = 0; i < count; i++)
-            {
-                newArray[i] = array[i];
-            }
+            T[] newArray = new T[count];
+            Array.Copy(array, newArray, count);
             return newArray;
         }
 
@@ -116,7 +113,7 @@ namespace DataStructures
         {
             for (int i = 0; i < count / 2; i++)
             {
-                object temp = array[i];
+                T temp = array[i];
                 array[i] = array[count - i - 1];
                 array[count - i - 1] = temp;
             }
@@ -127,7 +124,7 @@ namespace DataStructures
             if (count == capacity)
             {
                 capacity *= 2;
-                object[] newArray = new object[capacity];
+                T[] newArray = new T[capacity];
 
                 for (int i = 0; i < count; i++)
                 {
@@ -138,7 +135,7 @@ namespace DataStructures
             }
         }
 
-        public object this[int index]
+        public T this[int index]
         {
             get
             {

@@ -2,9 +2,9 @@
 
 namespace DataStructures
 {
-    public class Queue : IQueue
+    public class Queue<T> : IQueue<T>
     {
-        private object[] array;
+        private T[] array;
         private int head;
         private int tail;
         private int count;
@@ -16,13 +16,13 @@ namespace DataStructures
 
         public Queue()
         {
-            array = new object[4];
+            array = new T[4];
             head = 0;
             tail = -1;
             count = 0;
         }
 
-        public void Enqueue(object item)
+        public void Enqueue(T item)
         {
             EnsureCapacity();
 
@@ -31,15 +31,15 @@ namespace DataStructures
             count++;
         }
 
-        public object Dequeue()
+        public T Dequeue()
         {
             if (count == 0)
             {
                 throw new InvalidOperationException("Queue is empty");
             }
 
-            object item = array[head];
-            array[head] = null;
+            T item = array[head];
+            array[head] = default(T);
             head = (head + 1) % array.Length;
             count--;
 
@@ -48,13 +48,13 @@ namespace DataStructures
 
         public void Clear()
         {
-            array = new object[4];
+            array = new T[4];
             head = 0;
             tail = -1;
             count = 0;
         }
 
-        public bool Contains(object? item)
+        public bool Contains(T item)
         {
             for (int i = 0; i < count; i++)
             {
@@ -66,7 +66,7 @@ namespace DataStructures
             return false;
         }
 
-        public object Peek()
+        public T Peek()
         {
             if (count == 0)
             {
@@ -76,9 +76,9 @@ namespace DataStructures
             return array[head];
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] newArray = new object[count];
+            T[] newArray = new T[count];
             for (int i = 0; i < count; i++)
             {
                 int index = (head + i) % array.Length;
@@ -92,7 +92,7 @@ namespace DataStructures
             if (count == array.Length)
             {
                 int newCapacity = array.Length * 2;
-                object[] newArray = new object[newCapacity];
+                T[] newArray = new T[newCapacity];
 
                 for (int i = 0; i < count; i++)
                 {
