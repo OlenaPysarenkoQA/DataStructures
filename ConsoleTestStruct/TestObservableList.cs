@@ -123,22 +123,22 @@ namespace DataStructures.Tests
             observableList.ItemsCleared -= OnItemsCleared;
         }
 
-        static void OnItemAdded(object sender, ObservableList<int>.ItemChangedEventArgs<int> e)
+        static void OnItemAdded(object sender, ItemChangedEventArgs<int> e)
         {
             Console.WriteLine($"Item Added: {e.Item} at Index: {e.Index}");
         }
 
-        static void OnItemInserted(object sender, ObservableList<int>.ItemChangedEventArgs<int> e)
+        static void OnItemInserted(object sender, ItemChangedEventArgs<int> e)
         {
             Console.WriteLine($"Item Inserted: {e.Item} at Index: {e.Index}");
         }
 
-        static void OnItemRemoved(object sender, ObservableList<int>.ItemChangedEventArgs<int> e)
+        static void OnItemRemoved(object sender, ItemChangedEventArgs<int> e)
         {
             Console.WriteLine($"Item Removed: {e.Item} at Index: {e.Index}");
         }
 
-        static void OnItemChanged(object sender, ObservableList<int>.ItemChangedEventArgs<int> e)
+        static void OnItemChanged(object sender, ItemChangedEventArgs<int> e)
         {
             Console.WriteLine($"Item Changed: Old Value: {e.Item} at Index: {e.Index}");
         }

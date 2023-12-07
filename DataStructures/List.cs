@@ -27,14 +27,14 @@ namespace DataStructures
             this.capacity = capacity;
         }
 
-        public void Add(T item)
+        public virtual void Add(T item)
         {
             EnsureCapacity();
             array[count] = item;
             count++;
         }
 
-        public void Insert(int index, T item)
+        public virtual void Insert(int index, T item)
         {
             EnsureCapacity();
 
@@ -47,7 +47,7 @@ namespace DataStructures
             count++;
         }
 
-        public void Remove(T item)
+        public virtual void Remove(T item)
         {
             for (int i = 0; i < count; i++)
             {
@@ -59,7 +59,7 @@ namespace DataStructures
             }
         }
 
-        public void RemoveAt(int index)
+        public virtual void RemoveAt(int index)
         {
             if (index >= 0 && index < count)
             {
@@ -72,13 +72,13 @@ namespace DataStructures
             }
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             array = new T[capacity];
             count = 0;
         }
 
-        public bool Contains(T item)
+        public virtual bool Contains(T item)
         {
             for (int i = 0; i < count; i++)
             {
@@ -135,7 +135,7 @@ namespace DataStructures
             }
         }
 
-        public T this[int index]
+        public virtual T this[int index]
         {
             get
             {
