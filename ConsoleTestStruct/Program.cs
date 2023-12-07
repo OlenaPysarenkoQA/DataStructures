@@ -1,12 +1,15 @@
 ﻿using System;
 using DataStructures;
 
-namespace ConsoleTestStruct
+namespace DataStructures.Tests
 {
     class Program
     {
         static void Main()
         {
+            TestObservableList.RunTests();
+            Console.ReadKey();
+
             DataStructures.IList<int> myList = new DataStructures.List<int>();
             Console.WriteLine("List created!");
 
