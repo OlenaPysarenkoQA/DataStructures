@@ -3,14 +3,8 @@ using System.Collections.Generic;
 
 namespace DataStructures
 {
-    public class ObservableList<T> : List<T>
+    public class ObservableList<T> : List<T>, IObservableList<T>
     {
-        public event EventHandler<ItemChangedEventArgs<T>> ItemAdded;
-        public event EventHandler<ItemChangedEventArgs<T>> ItemInserted;
-        public event EventHandler<ItemChangedEventArgs<T>> ItemRemoved;
-        public event EventHandler<ItemChangedEventArgs<T>> ItemChanged;
-        public event EventHandler ItemsCleared;
-
         public class ItemChangedEventArgs<T> : EventArgs
         {
             public T Item { get; }
@@ -23,7 +17,7 @@ namespace DataStructures
             }
         }
 
-        public new T this[int index]
+        public T this[int index]
         {
             get
             {
@@ -37,7 +31,13 @@ namespace DataStructures
             }
         }
 
-        public new void Add(T item)
+        public event EventHandler<ItemChangedEventArgs<T>> ItemAdded;
+        public event EventHandler<ItemChangedEventArgs<T>> ItemInserted;
+        public event EventHandler<ItemChangedEventArgs<T>> ItemRemoved;
+        public event EventHandler<ItemChangedEventArgs<T>> ItemChanged;
+        public event EventHandler ItemsCleared;
+
+        public void Add(T item)
         {
             base.Add(item);
             OnItemAdded(new ItemChangedEventArgs<T>(item, Count-1));
@@ -49,20 +49,22 @@ namespace DataStructures
             OnItemInserted(new ItemChangedEventArgs<T>(item, index));
         }
 
-        public new void Remove(T item)
+        public void Remove(T item)
         {
-            int index = IndexOf(item); 
-            base.Remove(item);
-            OnItemRemoved(new ItemChangedEventArgs<T>(item, index));
+            int index = IndexOf(item);
+            if (index != -1)
+            {
+                RemoveAt(index);
+            }
         }
-        public new void RemoveAt(int index)
+        public void RemoveAt(int index)
         {
             T removedItem = base[index];
             base.RemoveAt(index);
             OnItemRemoved(new ItemChangedEventArgs<T>(removedItem, index));
         }
 
-        public new void Clear()
+        public void Clear()
         {
             base.Clear();
             OnItemsCleared();
