@@ -6,49 +6,49 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    public interface ICollection
+    public interface ICollection<T>
     {
         int Count { get; }
-        bool Contains(object? item);
-        object[] ToArray();
+        bool Contains(T item);
+        T[] ToArray();
         void Clear();
     }
 
-    public interface IList : ICollection
+    public interface IList<T> : ICollection<T>
     {
-        object this[int index] { get; set; }
-        void Add(object item);
-        void Insert(int index, object item);
-        void Remove(object item);
+        T this[int index] { get; set; }
+        void Add(T item);
+        void Insert(int index, T item);
+        void Remove(T item);
         void RemoveAt(int index);
-        int IndexOf(object item);
+        int IndexOf(T item);
     }
 
-    public interface ISinLinkedList : ICollection
+    public interface ISinLinkedList<T> : ICollection<T>
     {
-        void Add(object value);
-        void AddFirst(object value);
-        void Insert(int index, object value);
-        object FirstValue { get; }
-        object LastValue { get; }
+        void Add(T value);
+        void AddFirst(T value);
+        void Insert(int index, T value);
+        T FirstValue { get; }
+        T LastValue { get; }
     }
 
-    public interface IBinaryTree : ICollection
+    public interface IBinaryTree<T> : ICollection<T>
     {
-        void Add(object value);
+        void Add(T value);
     }
 
-    public interface IQueue : ICollection
+    public interface IQueue<T> : ICollection<T>
     {
-        void Enqueue(object item);
-        object Dequeue();
-        object Peek();
+        void Enqueue(T item);
+        T Dequeue();
+        T Peek();
     }
 
-    public interface IStack : ICollection
+    public interface IStack<T> : ICollection<T>
     {
-        void Push(object item);
-        object Pop();
-        object Peek();
+        void Push(T item);
+        T Pop();
+        T Peek();
     }
 }

@@ -7,7 +7,7 @@ namespace ConsoleTestStruct
     {
         static void Main()
         {
-            IList myList = new List();
+            DataStructures.IList<int> myList = new DataStructures.List<int>();
             Console.WriteLine("List created!");
 
             myList.Add(1);
@@ -27,19 +27,19 @@ namespace ConsoleTestStruct
 
             PrintCollection(myList);
 
-            ((List)myList).Reverse();
+            ((DataStructures.List<int>)myList).Reverse();
             Console.WriteLine("List after reversing:");
 
             PrintCollection(myList);
 
             Console.WriteLine("Element at index 1: " + myList[1]);
-            Console.WriteLine("List count: " + myList.Count);
+            Console.WriteLine("List count: " + myList.Count.ToString());
 
             myList.Clear();
             Console.WriteLine("List after clearing:");
-            Console.WriteLine("List count after clearing: " + myList.Count);
+            Console.WriteLine("List count after clearing: " + ((DataStructures.List<int>)myList).Count.ToString());
 
-            IBinaryTree binaryTree = new BinaryTree();
+            IBinaryTree<int> binaryTree = new BinaryTree<int>();
 
             binaryTree.Add(1);
             binaryTree.Add(3);
@@ -63,10 +63,10 @@ namespace ConsoleTestStruct
             binaryTree.Add(3);
             binaryTree.Add(1);
 
-            object[] array = binaryTree.ToArray();
+            int[] array = binaryTree.ToArray();
             Console.WriteLine("Array: " + string.Join(", ", array));
 
-            IQueue myQueue = new Queue();
+            IQueue<int> myQueue = new DataStructures.Queue<int>();
 
             myQueue.Enqueue(1);
             myQueue.Enqueue(2);
@@ -93,7 +93,7 @@ namespace ConsoleTestStruct
 
             Console.WriteLine($"Count after dequeue: {myQueue.Count}");
 
-            IStack stack = new Stack();
+            IStack<int> stack = new DataStructures.Stack<int>();
 
             stack.Push(1);
             stack.Push(2);
@@ -109,7 +109,7 @@ namespace ConsoleTestStruct
 
             Console.WriteLine($"Peek after Pop: {stack.Peek()}");
 
-            object[] arraySt = stack.ToArray();
+            int[] arraySt = stack.ToArray();
             Console.WriteLine("Stack as array:");
             foreach (var item in arraySt)
             {
@@ -120,7 +120,7 @@ namespace ConsoleTestStruct
 
             Console.WriteLine($"Stack count after Clear: {stack.Count}");
 
-            ISinLinkedList list = new SinLinkedList();
+            ISinLinkedList<int> list = new SinLinkedList<int>();
 
             list.Add(1);
             list.Add(2);
@@ -129,7 +129,7 @@ namespace ConsoleTestStruct
             Console.WriteLine("List elements:");
             PrintCollection(list);
 
-            ((SinLinkedList)list).AddFirst(0);
+            ((SinLinkedList<int>)list).AddFirst(0);
 
             list.Insert(2, 100);
 
@@ -142,12 +142,14 @@ namespace ConsoleTestStruct
             Console.ReadLine();
         }
 
-        static void PrintCollection(ICollection collection)
+        static void PrintCollection<T>(DataStructures.ICollection<T> collection)
         {
+            Console.WriteLine("Collection elements:");
             foreach (var item in collection.ToArray())
             {
                 Console.WriteLine(item);
             }
+            Console.WriteLine();
         }
     }
 }

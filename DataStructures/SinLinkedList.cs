@@ -2,14 +2,14 @@
 
 namespace DataStructures
 {
-    public class SinLinkedList : ISinLinkedList
+    public class SinLinkedList<T> : ISinLinkedList<T>
     {
         private class Node
         {
-            public readonly object value;
+            public readonly T value;
             public Node next;
 
-            public Node(object value)
+            public Node(T value)
             {
                 this.value = value;
                 next = null;
@@ -25,7 +25,7 @@ namespace DataStructures
             get { return сount; }
         }
 
-        public object FirstValue
+        public T FirstValue
         {
             get
             {
@@ -38,7 +38,7 @@ namespace DataStructures
             }
         }
 
-        public object LastValue
+        public T LastValue
         {
             get
             {
@@ -51,7 +51,7 @@ namespace DataStructures
             }
         }
 
-        public void Add(object value)
+        public void Add(T value)
         {
             Node newNode = new Node(value);
 
@@ -69,7 +69,7 @@ namespace DataStructures
             сount++;
         }
 
-        public void AddFirst(object value)
+        public void AddFirst(T value)
         {
             Node newNode = new Node(value);
 
@@ -87,7 +87,7 @@ namespace DataStructures
             сount++;
         }
 
-        public void Insert(int index, object value)
+        public void Insert(int index, T value)
         {
             if (index < 0 || index > Count)
             {
@@ -126,7 +126,7 @@ namespace DataStructures
             сount = 0;
         }
 
-        public bool Contains(object value)
+        public bool Contains(T value)
         {
             Node current = first;
 
@@ -143,7 +143,7 @@ namespace DataStructures
             return false;
         }
 
-        private bool ObjectEquals(object obj1, object obj2)
+        private bool ObjectEquals(T obj1, T obj2)
         {
             if (obj1 == null && obj2 == null)
             {
@@ -158,9 +158,9 @@ namespace DataStructures
             return obj1.Equals(obj2);
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] result = new object[сount];
+            T[] result = new T[сount];
             Node current = first;
 
             for (int i = 0; i < сount; i++)

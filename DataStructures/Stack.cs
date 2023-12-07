@@ -2,9 +2,9 @@
 
 namespace DataStructures
 {
-    public class Stack : IStack
+    public class Stack<T> : IStack<T>
     {
-        private object[] array;
+        private T[] array;
         private int top;
 
         public int Count
@@ -14,32 +14,32 @@ namespace DataStructures
 
         public Stack()
         {
-            array = new object[4];
+            array = new T[4];
             top = -1;
         }
 
-        public void Push(object item)
+        public void Push(T item)
         {
             EnsureCapacity();
             top++;
             array[top] = item;
         }
 
-        public object Pop()
+        public T Pop()
         {
             if (top == -1)
             {
                 throw new InvalidOperationException("Stack is empty");
             }
 
-            object item = array[top];
-            array[top] = null;
+            T item = array[top];
+            array[top] = default(T);
             top--;
 
             return item;
         }
 
-        public object Peek()
+        public T Peek()
         {
             if (top == -1)
             {
@@ -49,7 +49,7 @@ namespace DataStructures
             return array[top];
         }
 
-        public bool Contains(object? item)
+        public bool Contains(T item)
         {
             for (int i = 0; i < top; i++)
             {
@@ -63,13 +63,13 @@ namespace DataStructures
 
         public void Clear()
         {
-            array = new object[4];
+            array = new T[4];
             top = -1;
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] result = new object[top + 1];
+            T[] result = new T[top + 1];
             Array.Copy(array, result, top + 1);
             return result;
         }
@@ -79,7 +79,7 @@ namespace DataStructures
             if (top == array.Length - 1)
             {
                 int newCapacity = array.Length * 2;
-                object[] newArray = new object[newCapacity];
+                T[] newArray = new T[newCapacity];
                 Array.Copy(array, newArray, array.Length);
                 array = newArray;
             }
