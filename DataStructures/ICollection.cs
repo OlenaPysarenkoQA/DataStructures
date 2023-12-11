@@ -8,6 +8,7 @@ namespace DataStructures
 {
     public interface ICollection<T>
     {
+        
         int Count { get; }
         bool Contains(T item);
         T[] ToArray();
@@ -50,5 +51,14 @@ namespace DataStructures
         void Push(T item);
         T Pop();
         T Peek();
+    }
+
+    public interface IObservableList<T> : ICollection<T>
+    {
+        event EventHandler<ItemChangedEventArgs<T>>? ItemAdded;
+        event EventHandler<ItemChangedEventArgs<T>>? ItemInserted;
+        event EventHandler<ItemChangedEventArgs<T>>? ItemRemoved;
+        event EventHandler<ItemChangedEventArgs<T>>? ItemChanged;
+        event EventHandler ItemsCleared;
     }
 }
