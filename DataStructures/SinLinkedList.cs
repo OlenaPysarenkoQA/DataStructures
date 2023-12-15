@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DataStructures
 {
-    public class SinLinkedList<T> : ISinLinkedList<T>
+    public class SinLinkedList<T> : ISinLinkedList<T>, IEnumerable<T>
     {
         private class Node
         {
@@ -20,11 +22,8 @@ namespace DataStructures
         private Node last;
         private int сount;
 
-        public int Count
-        {
-            get { return сount; }
-        }
-
+        public int Count => Count;
+        
         public T FirstValue
         {
             get
@@ -49,6 +48,22 @@ namespace DataStructures
 
                 return last.value;
             }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            Node current = first;
+
+            while (current != null)
+            {
+                yield return current.value;
+                current = current.next;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public void Add(T value)

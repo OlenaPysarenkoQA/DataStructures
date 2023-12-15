@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DataStructures
 {
-    public class List<T> : IList<T>
+    public class List<T> : IList<T>, IEnumerable<T>
     {
         private T[] array;
         private int count;
         private int capacity;
+        private ICollection<T> collection;
 
-        public int Count
-        {
-            get { return count; }
-        }
+        public int Count => count;
 
         public List()
         {
@@ -25,6 +25,24 @@ namespace DataStructures
             array = new T[capacity];
             count = 0;
             this.capacity = capacity;
+        }
+
+        public List(ICollection<T> collection)
+        {
+            this.collection = collection;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return array[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public virtual void Add(T item)

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    public interface ICollection<T>
+    public interface ICollection<T> : IEnumerable<T>
     {
-        
         int Count { get; }
         bool Contains(T item);
         T[] ToArray();

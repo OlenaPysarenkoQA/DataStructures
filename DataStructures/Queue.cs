@@ -1,18 +1,17 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DataStructures
 {
-    public class Queue<T> : IQueue<T>
+    public class Queue<T> : IQueue<T>, IEnumerable
     {
         private T[] array;
         private int head;
         private int tail;
         private int count;
 
-        public int Count
-        {
-            get { return count; }
-        }
+        public int Count => count;
 
         public Queue()
         {
@@ -20,6 +19,25 @@ namespace DataStructures
             head = 0;
             tail = -1;
             count = 0;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return EnumerateItems().GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private IEnumerable<T> EnumerateItems()
+        {
+            for (int i = 0; i < count; i++)
+            {
+                int index = (head + i) % array.Length;
+                yield return array[index];
+            }
         }
 
         public void Enqueue(T item)
