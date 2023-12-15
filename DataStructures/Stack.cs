@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DataStructures
 {
-    public class Stack<T> : IStack<T>
+    public class Stack<T> : IStack<T>, IEnumerable<T>
     {
         private T[] array;
         private int top;
@@ -10,6 +13,19 @@ namespace DataStructures
         public int Count
         {
             get { return top + 1; }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = top; i >= 0; i--)
+            {
+                yield return array[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public Stack()

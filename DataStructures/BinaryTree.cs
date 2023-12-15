@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DataStructures
 {
-    public class BinaryTree<T> : IBinaryTree<T> where T : IComparable<T>
+    public class BinaryTree<T> : IBinaryTree<T>, IEnumerable<T> where T : IComparable<T>
     {
         private class TreeNode
         {
@@ -22,6 +25,30 @@ namespace DataStructures
         private int nodeCount;
 
         public int Count => nodeCount;
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return InOrderTraversal(root).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private IEnumerable<T> InOrderTraversal(TreeNode node)
+        {
+            if (node != null)
+            {
+                foreach (var item in InOrderTraversal(node.left))
+                    yield return item;
+
+                yield return node.value;
+
+                foreach (var item in InOrderTraversal(node.right))
+                    yield return item;
+            }
+        }
 
         public void Add(T value)
         {
