@@ -9,8 +9,7 @@ namespace DataStructures
         private T[] array;
         private int count;
         private int capacity;
-        private ICollection<T> collection;
-
+       
         public int Count => count;
 
         public List()
@@ -29,7 +28,13 @@ namespace DataStructures
 
         public List(ICollection<T> collection)
         {
-            this.collection = collection;
+            array = new T[collection.Count];
+            count = 0;
+
+            foreach (T item in collection)
+            {
+                Add(item);
+            }
         }
 
         public IEnumerator<T> GetEnumerator()
